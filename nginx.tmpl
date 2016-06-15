@@ -1,5 +1,5 @@
 {{ $CurrentContainer := where $ "ID" .Docker.CurrentContainerID | first }}
-{{ $proxyAppKey := coalesce  $CurrentContainer.Env.APP_KEY "" }}
+{{ $proxyAppKey := coalesce  $CurrentContainer.Env.PROXY_KEY "" }}
 
 {{ define "upstream" }}
 	{{ if .Address }}
