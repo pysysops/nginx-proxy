@@ -11,7 +11,7 @@ function setup {
 
 @test "[$TEST_FILE] start a nginx-proxy container" {
 	# GIVEN
-	run nginxproxy $SUT_CONTAINER -v /var/run/docker.sock:/tmp/docker.sock:ro -e APP_KEY=green
+	run nginxproxy $SUT_CONTAINER -v /var/run/docker.sock:/tmp/docker.sock:ro -e PROXY_KEY=green
 	assert_success
 	docker_wait_for_log $SUT_CONTAINER 9 "Watching docker events"
 }
