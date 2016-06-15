@@ -210,6 +210,45 @@ $ docker run -d -p 9090:80 -p 9443:443 \
     -e APP_KEY=api-blue ...
 
 ```
+
+#### Docker Compose
+
+```yaml
+version: '2'
+services:
+  core-proxy:
+    image: pysysops/nginx-proxy
+    container_name: nginx-proxy
+    ports:
+      - 80:80
+    environment:
+      - PROXY_KEY=whoami.core
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro  
+
+  whoami-blue-proxy:
+    image: pysysops/nginx-proxy
+    container_name: nginx-proxy
+    environment:
+      - PROXY_KEY=whoami.blue
+      - APP_KEY=whoami.core
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+
+  whoami:
+    image: jwilder/whoami
+    container_name: whoami
+    environment:
+      - APP_KEY=whoami.blue
+      - VIRTUAL_HOST=whoami.local
+```
+
+```shell
+$ docker-compose up
+$ curl -H "Host: whoami.local" localhost
+I''m 5b129ab83266
+```
+
 This could be used in the orchestration of blue-green style deployments of
 containers onto a single Docker host. You can also have an nginx-proxy reverse proxying to
 other reverse proxies for more complex request routing behaviour.

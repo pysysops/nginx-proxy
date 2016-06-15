@@ -1,15 +1,27 @@
 version: '2'
 services:
-  nginx-proxy:
-    image: jwilder/nginx-proxy
+  core-proxy:
+    image: pysysops/nginx-proxy
     container_name: nginx-proxy
     ports:
-      - "80:80"
+      - 80:80
+    environment:
+      - PROXY_KEY=whoami.core
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+
+  whoami-blue-proxy:
+    image: pysysops/nginx-proxy
+    container_name: nginx-proxy
+    environment:
+      - PROXY_KEY=whoami.blue
+      - APP_KEY=whoami.core
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock:ro
 
   whoami:
     image: jwilder/whoami
+    container_name: whoami
     environment:
+      - APP_KEY=whoami.blue
       - VIRTUAL_HOST=whoami.local
-
