@@ -1,6 +1,6 @@
 ![nginx 1.9.15](https://img.shields.io/badge/nginx-1.9.15-brightgreen.svg) ![License MIT](https://img.shields.io/badge/license-MIT-blue.svg) [![Build Status](https://travis-ci.org/pysysops/nginx-proxy.svg?branch=master)](https://travis-ci.org/pysysops/nginx-proxy) [![](https://img.shields.io/docker/stars/pysysops/nginx-proxy.svg)](https://hub.docker.com/r/pysysops/nginx-proxy 'DockerHub') [![](https://img.shields.io/docker/pulls/pysysops/nginx-proxy.svg)](https://hub.docker.com/r/pysysops/nginx-proxy 'DockerHub')
 
-A big thanks to Jason Wilder (@jwilder) for docker-gen and the original nginx-proxy Docker container.
+A big thanks to Jason Wilder (@jaswilder) for docker-gen and the original nginx-proxy Docker container.
 
 nginx-proxy sets up a container running nginx and [docker-gen][1].  docker-gen generates reverse proxy configs for nginx and reloads nginx when containers are started and stopped.
 
