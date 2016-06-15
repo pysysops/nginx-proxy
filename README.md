@@ -34,7 +34,7 @@ services:
       - /var/run/docker.sock:/tmp/docker.sock:ro
 
   whoami:
-    image: pysysops/whoami
+    image: jwilder/whoami
     container_name: whoami
     environment:
       - VIRTUAL_HOST=whoami.local
