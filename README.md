@@ -35,7 +35,6 @@ services:
 
   whoami:
     image: jwilder/whoami
-    container_name: whoami
     environment:
       - VIRTUAL_HOST=whoami.local
 ```
@@ -218,7 +217,6 @@ version: '2'
 services:
   core-proxy:
     image: pysysops/nginx-proxy
-    container_name: nginx-proxy
     ports:
       - 80:80
     environment:
@@ -228,7 +226,6 @@ services:
 
   whoami-blue-proxy:
     image: pysysops/nginx-proxy
-    container_name: blue-proxy
     environment:
       - PROXY_KEY=whoami.blue
       - APP_KEY=whoami.core
@@ -237,7 +234,6 @@ services:
 
   whoami:
     image: jwilder/whoami
-    container_name: whoami
     environment:
       - APP_KEY=whoami.blue
       - VIRTUAL_HOST=whoami.local
@@ -265,6 +261,17 @@ $ curl -v -H "Host: whoami.local" localhost
 <
 I'm dc5375952217
 * Connection #0 to host localhost left intact
+```
+
+You can then scale up the "whoami" service and load balance across containers:
+
+```shell
+$ docker-compose scale whoami=4
+$ for i in {1..4} ; do curl -H "Host: whoami.local" localhost ; done
+I'm 75108723fd7f
+I'm 42c180e0b5b6
+I'm 1be59dd5e73a
+I'm 09907b378992
 ```
 
 This could be used in the orchestration of blue-green style deployments of
