@@ -12,10 +12,11 @@ services:
 
   whoami-blue-proxy:
     image: pysysops/nginx-proxy
-    container_name: nginx-proxy
+    container_name: blue-proxy
     environment:
       - PROXY_KEY=whoami.blue
       - APP_KEY=whoami.core
+      - VIRTUAL_HOST=whoami.local
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock:ro
 

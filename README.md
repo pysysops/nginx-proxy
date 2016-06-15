@@ -228,7 +228,7 @@ services:
 
   whoami-blue-proxy:
     image: pysysops/nginx-proxy
-    container_name: nginx-proxy
+    container_name: blue-proxy
     environment:
       - PROXY_KEY=whoami.blue
       - APP_KEY=whoami.core
@@ -245,8 +245,26 @@ services:
 
 ```shell
 $ docker-compose up
-$ curl -H "Host: whoami.local" localhost
-I''m 5b129ab83266
+$ curl -v -H "Host: whoami.local" localhost
+* Rebuilt URL to: localhost/
+*   Trying 127.0.0.1...
+* Connected to localhost (127.0.0.1) port 80 (#0)
+> GET / HTTP/1.1
+> Host: whoami.local
+> User-Agent: curl/7.47.0
+> Accept: */*
+>
+< HTTP/1.1 200 OK
+< Server: nginx/1.9.15
+< Date: Wed, 15 Jun 2016 09:42:08 GMT
+< Content-Type: text/plain; charset=utf-8
+< Content-Length: 17
+< Connection: keep-alive
+< X-App-Key: whoami.blue
+< X-App-Key: whoami.core
+<
+I'm dc5375952217
+* Connection #0 to host localhost left intact
 ```
 
 This could be used in the orchestration of blue-green style deployments of
